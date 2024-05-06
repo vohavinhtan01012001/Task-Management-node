@@ -10,7 +10,7 @@ import { loginSchema, registerSchema } from "../../validation/user";
 const authRouter = Router();
 
 authRouter.post("/register", validateRequest(registerSchema), registerUser);
-authRouter.post("/login", validateRequest(loginSchema), loginUser);
+authRouter.post("/login",validateRequest(loginSchema), loginUser);
 authRouter.post("/forgot-password", forgotPassword);
 authRouter.post("/reset-password", resetPassword);
 

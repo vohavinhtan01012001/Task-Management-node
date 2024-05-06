@@ -4,11 +4,11 @@ import sequelizeConnection from "../db/connection";
 
 class User extends Model {
   public id!: number;
-  public name!: string;
+  public fullname!: string;
   public email!: string;
   public password!: string;
-  public mobile!: string;
-
+  public phone!: string;
+  public address!: string | null;
   public status!: boolean;
 
   // timestamps!
@@ -25,7 +25,7 @@ User.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    name: {
+    fullname: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -34,8 +34,17 @@ User.init(
       allowNull: false,
       unique: true,
     },
+    address: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    phone:{
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     password: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     status: {
       type: DataTypes.INTEGER,

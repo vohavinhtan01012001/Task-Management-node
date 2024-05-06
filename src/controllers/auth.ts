@@ -11,6 +11,7 @@ import { sign } from "../util/jwt";
 import { generateOTP, verifyOTP } from "../util/otp";
 import { sendOTP } from "../helpers/mailHelper";
 import { ApiError } from "../util/ApiError";
+import { ApiResponse } from "customDefinition";
 const omitData = ["password"];
 
 export const registerUser = async (
@@ -20,23 +21,20 @@ export const registerUser = async (
 ) => {
   try {
     let user = req.body;
+    console.log(user);
     const userExist = await userExists({
       email: user.email,
-      mobile: user.mobile,
     });
     if (userExist) {
-      throw new ApiError(400, "Email or Mobile is alredy used");
+      throw new ApiError(400, "Email is alredy used");
     }
     user = await createUser(user);
-    const userData = omit(user?.toJSON(), omitData);
-    const accessToken = sign({ ...userData });
+    const apiResponse: ApiResponse = {
+      statusCode: 1,
+      message: "User registered successfully",
+    };
 
-    return res.status(200).json({
-      data: userData,
-      error: false,
-      accessToken,
-      msg: "User registered successfully",
-    });
+    return res.status(200).json(apiResponse);
   } catch (err) {
     next(err);
   }
@@ -49,7 +47,6 @@ export const loginUser = async (
 ) => {
   try {
     const { email, password } = req.body;
-
     const user = await findOneUser({ email });
     if (!user) {
       throw new ApiError(400, "Email id is incorrect");
@@ -61,11 +58,14 @@ export const loginUser = async (
     }
     const userData = omit(user?.toJSON(), omitData);
     const accessToken = sign({ ...userData });
-
+    const apiResponse: ApiResponse = {
+      statusCode: 1,
+      message: "Login successful",
+    };
     return res.status(200).json({
-      data: userData,
-      access_token: accessToken,
-      error: false,
+      user: userData,
+      accessToken: accessToken,
+      ...apiResponse,
     });
   } catch (err) {
     next(err);

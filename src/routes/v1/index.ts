@@ -3,18 +3,23 @@ import { Router } from "express";
 import authRouter from "./authRoute";
 import docsRouter from "./docsRoute";
 import userRouter from "./userRoutes";
+import projectRouter from "./projectRoute";
 
 const appRouter = Router();
 
 // all routes
 const appRoutes = [
   {
-    path: "/auth",
+    path: "/authorization",
     router: authRouter,
   },
   {
     path: "/user",
     router: userRouter,
+  },
+  {
+    path: "/project",
+    router: projectRouter,
   },
   {
     path: "/docs",
