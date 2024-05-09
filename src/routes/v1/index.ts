@@ -4,6 +4,8 @@ import authRouter from "./authRoute";
 import docsRouter from "./docsRoute";
 import userRouter from "./userRoutes";
 import projectRouter from "./projectRoute";
+import sectionRouter from "./sectionRoute";
+import taskRouter from "./taskRoute";
 
 const appRouter = Router();
 
@@ -18,12 +20,20 @@ const appRoutes = [
     router: userRouter,
   },
   {
+    path: "/docs",
+    router: docsRouter,
+  },
+  {
     path: "/project",
     router: projectRouter,
   },
   {
-    path: "/docs",
-    router: docsRouter,
+    path: "/section",
+    router: sectionRouter,
+  },
+  {
+    path: "/task",
+    router: taskRouter,
   },
 ];
 

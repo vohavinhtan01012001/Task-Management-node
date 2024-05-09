@@ -1,22 +1,20 @@
 import { DataTypes, Model } from "sequelize";
 import sequelizeConnection from "../db/connection";
+import Project from "./Project";
 import User from "./User";
 
-class Project extends Model {
+class Section extends Model {
   public id!: number;
   public title!: string;
-  public description!: string;
-  public favorite!: number;
-  public color!: string;
+  public projectId!: string;
   public userId!: number;
-  public priority!: number;
   // timestamps!
   public readonly created_at!: Date;
   public readonly last_updated!: Date;
 
 }
 
-Project.init(
+Section.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -27,42 +25,29 @@ Project.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-    },
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+    },
+    projectId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
     },
     priority: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0,
     },
-    favorite: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
-      allowNull: false,
-      validate: {
-        isIn: [[0, 1]] 
-      }
-    },
-    color:{
-      type: DataTypes.STRING,
-      defaultValue:"#333",
-      allowNull: false,
-    }
   },
   {
     sequelize: sequelizeConnection,
-    tableName: "projects",
+    tableName: "sections",
     createdAt: "created_at",
     updatedAt: "last_updated",
   }
 );
 
-Project.belongsTo(User, { foreignKey: "userId", targetKey: "id" });
+Section.belongsTo(Project, { foreignKey: "projectId", targetKey: "id" });
+Section.belongsTo(User, { foreignKey: "userId", targetKey: "id" });
 
-
-export default Project;
+export default Section;

@@ -16,8 +16,6 @@ const isAdmin = async (
         .json({ error: true, errorMsg: "Access not granted" });
     }
     return next();
-
-    return next();
   } catch (err) {
     let msg = "Internal Server Error";
     if (err instanceof Error) {

@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { AddProject, getProjects } from "../../controllers/project";
-import { validateRequest } from "../../middleware";
+import { AddProject, getByIdProject, getProjects } from "../../controllers/project";
+import { requireUser, validateRequest } from "../../middleware";
 import { project } from "../../validation/project";
 
 const projectRouter = Router();
-
-projectRouter.get("/", getProjects);
-projectRouter.post("/add-project",validateRequest(project), AddProject);
+projectRouter.get("/", requireUser,getProjects);
+projectRouter.post("/add-project",requireUser,validateRequest(project), AddProject);
+projectRouter.get("/get-project/:id",requireUser, getByIdProject);
 
 export default projectRouter;
 
@@ -36,6 +36,8 @@ export default projectRouter;
  *     summary: Create Project
  *     description: Logged-in users can only add their own information.
  *     tags: [Project]
+ *     security:
+ *       - bearerAuth: []  # Yêu cầu xác thực JWT
  *     requestBody:
  *       required: true
  *       content:
@@ -69,3 +71,26 @@ export default projectRouter;
  *         description: Bad Request
  */
 
+
+/**
+ * @swagger
+ * /v1/project/get-project/{id}:
+ *   get:
+ *     summary: Get project by ID
+ *     description: Get a project by its ID
+ *     tags: [Project]
+ *     security:
+ *       - bearerAuth: []  # Yêu cầu xác thực JWT
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the project to get
+ *     responses:
+ *       '200':
+ *         description: OK
+ *       '404':
+ *         description: Not Found
+ */

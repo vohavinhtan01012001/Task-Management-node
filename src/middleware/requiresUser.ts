@@ -10,7 +10,6 @@ const requireUser = async (
 ) => {
   try {
     const user: any = get(req, "user");
-
     if (!user) {
       return res
         .status(403)
@@ -18,7 +17,6 @@ const requireUser = async (
     }
     const data = await getUserById(user.id);
     req.user = data?.toJSON();
-
     return next();
   } catch (err) {
     let msg = "Internal Server Error";
