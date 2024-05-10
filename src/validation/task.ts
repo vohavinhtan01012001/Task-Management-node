@@ -9,5 +9,7 @@ export const taskCreate= Joi.object(
         sectionId: Joi.number().required(),
         projectId: Joi.number().required(),
         color: Joi.string().required(),
+        startDate: Joi.string().allow(null),
+        endDate: Joi.string().allow(null),
     }
 );
