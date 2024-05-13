@@ -1,6 +1,6 @@
 import { ApiResponse, customRequest } from "customDefinition";
 import { NextFunction, Response } from "express";
-import { createSectionService, getSectionAll } from "../services/sectionService";
+import { createSectionService, getSectionAll, updatePriorityService } from "../services/sectionService";
 
 
 export const getSections = async (
@@ -38,5 +38,24 @@ export const AddSection = async (
       });
     } catch (err) {
       next(err);
+    }
+  };
+
+
+  export const UpdatePriority =  async (
+    req: customRequest,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const body:any = req.body;
+      await updatePriorityService(body);
+      const response: ApiResponse = {
+        statusCode: 1,
+        message: "section created successfully",
+      };
+      return res.status(200).json(response);
+    } catch (error) {
+      next(error);
     }
   };

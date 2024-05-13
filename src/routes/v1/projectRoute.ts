@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { AddProject, getByIdProject, getProjects } from "../../controllers/project";
+import { AddProject, getByIdProject, getProjects,UpdatePriority } from "../../controllers/project";
 import { requireUser, validateRequest } from "../../middleware";
 import { project } from "../../validation/project";
 
@@ -7,6 +7,7 @@ const projectRouter = Router();
 projectRouter.get("/", requireUser,getProjects);
 projectRouter.post("/add-project",requireUser,validateRequest(project), AddProject);
 projectRouter.get("/get-project/:id",requireUser, getByIdProject);
+projectRouter.put("/update-priority",UpdatePriority);
 
 export default projectRouter;
 

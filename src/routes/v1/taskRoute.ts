@@ -1,12 +1,13 @@
 import { Router } from "express";
 import { requireUser, validateRequest } from "../../middleware";
-import { AddTask, GetTask } from "../../controllers/task";
+import { AddTask, GetTask, UpdatePriority } from "../../controllers/task";
 import { taskCreate } from "../../validation/task";
 
 
 const taskRouter = Router();
 taskRouter.post("/add-task",requireUser,validateRequest(taskCreate), AddTask);
 taskRouter.get("/get-task/:sectionId",requireUser, GetTask);
+taskRouter.put("/update-priority",UpdatePriority);
 export default taskRouter;
 
 

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { AddSection, getSections } from "../../controllers/section";
+import { AddSection, getSections, UpdatePriority } from "../../controllers/section";
 import { section } from "../../validation/section";
 import { validateRequest } from "../../middleware";
 import { requireUser } from "../../middleware";
@@ -8,6 +8,7 @@ const sectionRouter = Router();
 
 sectionRouter.get("/:projectId", requireUser,getSections);
 sectionRouter.post("/add-section",requireUser,validateRequest(section), AddSection);
+sectionRouter.put("/update-priority",UpdatePriority);
 
 export default sectionRouter;
 

@@ -8,6 +8,7 @@ class Section extends Model {
   public title!: string;
   public projectId!: string;
   public userId!: number;
+  public priority!: number;
   // timestamps!
   public readonly created_at!: Date;
   public readonly last_updated!: Date;
