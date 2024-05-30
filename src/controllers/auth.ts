@@ -47,6 +47,7 @@ export const loginUser = async (
 ) => {
   try {
     const { email, password } = req.body;
+    console.log(req.body);
     const user = await findOneUser({ email });
     if (!user) {
       throw new ApiError(400, "Email id is incorrect");

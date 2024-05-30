@@ -7,3 +7,11 @@ export const section= Joi.object(
         userId:Joi.number().required(),
     }
 );
+
+export const sectionUpdate= Joi.object(
+    {
+        title:Joi.string(),
+        projectId:Joi.number(),
+        userId:Joi.number(),
+    }
+);

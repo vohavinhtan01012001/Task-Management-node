@@ -1,6 +1,6 @@
 import { ApiResponse, customRequest } from "customDefinition";
 import { NextFunction, Response } from "express";
-import { createSectionService, getSectionAll, updatePriorityService } from "../services/sectionService";
+import { copySectionService, createSectionService, deleteSectionService, getSectionAll, updatePriorityService, updateSectionService } from "../services/sectionService";
 
 
 export const getSections = async (
@@ -53,6 +53,65 @@ export const AddSection = async (
       const response: ApiResponse = {
         statusCode: 1,
         message: "section created successfully",
+      };
+      return res.status(200).json(response);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  export const UpdateSection =  async (
+    req: customRequest,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const body:any = req.body;
+      const id = req.params.id;
+      const idToInt = parseInt(id, 10);
+      await updateSectionService(idToInt,body);
+      const response: ApiResponse = {
+        statusCode: 1,
+        message: "section update successfully",
+      };
+      return res.status(200).json(response);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+
+  export const DeleteSection =  async (
+    req: customRequest,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const id = req.params.id;
+      const idToInt = parseInt(id, 10);
+      await deleteSectionService(idToInt);
+      const response: ApiResponse = {
+        statusCode: 1,
+        message: "section delete successfully",
+      };
+      return res.status(200).json(response);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  export const CopySection =  async (
+    req: customRequest,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const id = req.params.id;
+      const idToInt = parseInt(id, 10);
+      await copySectionService(idToInt);
+      const response: ApiResponse = {
+        statusCode: 1,
+        message: "section copy successfully",
       };
       return res.status(200).json(response);
     } catch (error) {
