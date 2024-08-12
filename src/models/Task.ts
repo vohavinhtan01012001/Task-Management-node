@@ -15,6 +15,7 @@ class Task extends Model {
     public subTaskId!: number;
     public sectionId!: number;
     public projectId!: number;
+    public status!: number;
     // timestamps!
     public readonly created_at!: Date;    
     public readonly last_updated!: Date;
@@ -69,6 +70,11 @@ Task.init(
       type: DataTypes.STRING,
       defaultValue:"#333",
       allowNull: false,
+    },
+    status:{
+      type: DataTypes.INTEGER,
+      defaultValue:0,
+      allowNull: false,
     }
   },
   {
@@ -79,6 +85,7 @@ Task.init(
   }
 );
 
+Section.hasMany(Task, { foreignKey: "sectionId", sourceKey: "id" });
 Task.belongsTo(Task, { foreignKey: "subTaskId", targetKey: "id" });
 Task.belongsTo(User, { foreignKey: "userId", targetKey: "id" });
 Task.belongsTo(Project, { foreignKey: "projectId", targetKey: "id" });

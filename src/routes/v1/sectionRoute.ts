@@ -8,10 +8,10 @@ const sectionRouter = Router();
 
 sectionRouter.get("/:projectId", requireUser,getSections);
 sectionRouter.post("/add-section",requireUser,validateRequest(section), AddSection);
-sectionRouter.put("/update-priority",UpdatePriority);
-sectionRouter.put("/update-section/:id",validateRequest(sectionUpdate),UpdateSection);
-sectionRouter.delete("/delete/:id",DeleteSection);
-sectionRouter.get("/copy/:id",CopySection);
+sectionRouter.put("/update-priority",requireUser,UpdatePriority);
+sectionRouter.put("/update-section/:id",requireUser,validateRequest(sectionUpdate),UpdateSection);
+sectionRouter.delete("/delete/:id",requireUser,DeleteSection);
+sectionRouter.get("/copy/:id",requireUser,CopySection);
 export default sectionRouter;
 
 /**

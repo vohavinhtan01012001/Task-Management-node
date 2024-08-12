@@ -7,6 +7,8 @@ export const registerSchema = Joi.object({
   phone: Joi.string().min(10),
   address:Joi.string().allow(""),
   password: Joi.string().min(8).required(),
+  color: Joi.string(),
+  abb: Joi.string(),
 });
 
 export const loginSchema = Joi.object({
@@ -23,4 +25,6 @@ export const updateSchema = Joi.object({
   province: Joi.string(),
   location: Joi.string(),
   date_of_birth: Joi.string(),
+  color: Joi.string(),
+  abb: Joi.string(),
 });

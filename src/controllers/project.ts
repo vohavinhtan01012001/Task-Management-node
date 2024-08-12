@@ -1,6 +1,6 @@
 import { NextFunction, Response } from "express";
 import { ApiResponse, customRequest } from "../types/customDefinition";
-import { createProject, getByIdProjectService, getProjectAll, updatePriorityService } from "../services/projectService";
+import { createProject, getAllProjectsAndSectionsService, getByIdProjectService, getProjectAll, updatePriorityService } from "../services/projectService";
 
 
 export const getProjects = async (
@@ -77,6 +77,25 @@ export const UpdatePriority =  async (
       message: "task created successfully",
     };
     return res.status(200).json(response);
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+export const GetAllProjectAndSections =  async (
+  req: customRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const userId = req.user.id;
+   const projectsAndSections = await getAllProjectsAndSectionsService(userId);
+    const response: ApiResponse = {
+      statusCode: 1,
+      message: "task created successfully",
+    };
+    return res.status(200).json({status:response,list:projectsAndSections});
   } catch (error) {
     next(error);
   }

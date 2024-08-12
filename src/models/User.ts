@@ -54,6 +54,15 @@ User.init(
       type: DataTypes.INTEGER,
       defaultValue: 2,
     },
+    color:{
+      type: DataTypes.STRING,
+      defaultValue:"#green",
+      allowNull: false,
+    },
+    abb:{
+      type: DataTypes.STRING,
+      allowNull: false,
+    }
   },
   {
     sequelize: sequelizeConnection,

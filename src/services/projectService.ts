@@ -1,3 +1,4 @@
+import Section from "../models/Section";
 import Project from "../models/Project";
 
 export const getProjectAll = async (userId:number)=> {
@@ -30,5 +31,18 @@ export const updatePriorityService = async (priorities:any[]) =>{
         priorities.forEach( async(item) =>{
             await Project.update({priority: item.priority},{where:{id:item.id}});
         });
+    }
+};
+
+
+export const getAllProjectsAndSectionsService = async (userId: number) => {
+    try {
+        const getProjectsAndSections = await Project.findAll({
+            include: [Section],
+            where: { userId: userId }
+        });
+        return getProjectsAndSections;
+    } catch (error) {
+        throw new Error(error.message);
     }
 };

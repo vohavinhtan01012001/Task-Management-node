@@ -6,6 +6,7 @@ import userRouter from "./userRoutes";
 import projectRouter from "./projectRoute";
 import sectionRouter from "./sectionRoute";
 import taskRouter from "./taskRoute";
+import commentRoute from "./commentRoute";
 
 const appRouter = Router();
 
@@ -34,6 +35,10 @@ const appRoutes = [
   {
     path: "/task",
     router: taskRouter,
+  }, 
+  {
+    path: "/comment",
+    router: commentRoute,
   },
 ];
 

@@ -1,13 +1,18 @@
 import { Router } from "express";
 import { requireUser, validateRequest } from "../../middleware";
-import { AddTask, GetTask, UpdatePriority } from "../../controllers/task";
+import { AddSubTask, AddTask, GetSubTask, GetTask, UpdatePriority, UpdateStatus, UpdateTask, UpdateTaskMoveToSection } from "../../controllers/task";
 import { taskCreate } from "../../validation/task";
 
 
 const taskRouter = Router();
 taskRouter.post("/add-task",requireUser,validateRequest(taskCreate), AddTask);
+taskRouter.post("/add-subTask/:id",requireUser,validateRequest(taskCreate), AddSubTask);
 taskRouter.get("/get-task/:sectionId",requireUser, GetTask);
-taskRouter.put("/update-priority",UpdatePriority);
+taskRouter.get("/get-subTask/:id",requireUser, GetSubTask);
+taskRouter.put("/update-priority",requireUser,UpdatePriority);
+taskRouter.get("/update-status/:id",requireUser,UpdateStatus);
+taskRouter.patch("/update/:id",requireUser,UpdateTask);
+taskRouter.patch("/move-task/:id",requireUser,UpdateTaskMoveToSection);
 export default taskRouter;
 
 

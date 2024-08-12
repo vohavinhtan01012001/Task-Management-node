@@ -1,6 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import sequelizeConnection from "../db/connection";
 import User from "./User";
+import Section from "./Section";
 
 class Project extends Model {
   public id!: number;
@@ -62,6 +63,7 @@ Project.init(
   }
 );
 
+///Chỉnh chỗ này
 Project.belongsTo(User, { foreignKey: "userId", targetKey: "id" });
 
 

@@ -1,9 +1,9 @@
 import { DataTypes, Model } from "sequelize";
 import sequelizeConnection from "../db/connection";
-import Project from "./Project";
+import Task from "./Task";
 import User from "./User";
 
-class Section extends Model {
+class Comment extends Model {
   public id!: number;
   public title!: string;
   public projectId!: string;
@@ -15,40 +15,34 @@ class Section extends Model {
 
 }
 
-Section.init(
+Comment.init(
   {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    title: {
-      type: DataTypes.STRING,
+    comment: {
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    projectId: {
+    taskId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-    },
-    priority: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 0,
     },
   },
   {
     sequelize: sequelizeConnection,
-    tableName: "sections",
+    tableName: "comments",
     createdAt: "created_at",
     updatedAt: "last_updated",
   }
 );
-Project.hasMany(Section, { foreignKey: "projectId", sourceKey: "id" });
-Section.belongsTo(Project, { foreignKey: "projectId", targetKey: "id" });
-Section.belongsTo(User, { foreignKey: "userId", targetKey: "id" });
+Comment.belongsTo(User, { foreignKey: "userId", targetKey: "id" });
+Comment.belongsTo(Task, { foreignKey: "taskId", targetKey: "id" });
 
-export default Section;
+export default Comment;

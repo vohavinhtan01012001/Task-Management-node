@@ -3,7 +3,16 @@ import Project from "../models/Project";
 import Task from "../models/Task";
 
 export const getSectionAll = async (projectId:number)=> {
-    const sections = await Section.findAll({where: {projectId: projectId}});
+    const sections = await Section.findAll({
+        where: { projectId: projectId },
+        include: [
+          {
+            model: Task,
+            where: { status: 0,subTaskId: null },
+            required: false ,
+          }
+        ]
+      });
     const listSection = sections.sort((a, b) => a.priority - b.priority);
     return listSection;
 };
